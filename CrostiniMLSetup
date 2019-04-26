@@ -149,7 +149,21 @@ title "Setting up Coral Edge TPU ";
 
 
 }
+installTFSampleCode(){
+title "Writing Sample - Tensorflow Hello World ";
+     cd ~/
+     cat <<EOF > SampleTFHelloWorld.py
+import tensorflow as tf
+# Simple hello world using TensorFlow by Keith I Myers
+# https://KMyers.me | Keith@KMyers.me
 
+hello = tf.constant('Hello World, from TensorFlow!')
+
+sess = tf.Session()
+
+print(sess.run(hello))
+EOF
+}
 ###############################################################
 ## MAIN PROGRAM
 ###############################################################
@@ -167,6 +181,7 @@ options=(
     02 "Build and Install OpenCV" on
     03 "Setup udev rules for Intel Movidius Neural Compute Stick 1/2" off
     04 "Setup Google Coral Edge TPU (Experimental)" off
+    05 "Create Tensorflow Hello Sample Script" on
 );
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty);
@@ -216,6 +231,7 @@ do
         02) installOpenCV ;;
         03) installNCSudev ;;
         04) installCoralEdgeTPU ;;
+        05) installTFSampleCode ;;
     esac
 done
 
