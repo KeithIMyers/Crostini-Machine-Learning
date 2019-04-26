@@ -3,3 +3,7 @@ Thank You for using the ChromeOS Crostini Machine Learning Setup Script to setup
 
 Please visit the official instructions at https://kmyers.me/help/chromeos-crostini-ml/
 
+Install it with 
+
+cd ~/
+sudo apt install -y wget && bash <(wget -qO- https://raw.githubusercontent.com/KeithIMyers/Crostini-Machine-Learning/master/CrostiniMLSetup);
