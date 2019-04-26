@@ -54,21 +54,21 @@ installedTensorflow=0;
 
 #INSTALL MINICONDA WITH TENSORFLOW
 installConda() {
-title "Installing Conda with Tensorflow";
+title "Installing Conda with Tensorflow and Keras and PyTorch";
     cd /tmp;
     curl -O https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh;
     bash Anaconda3-5.2.0-Linux-x86_64.sh -b -u -p $HOME/miniconda;
     rm Anaconda3-5.2.0-Linux-x86_64.sh;
-    echo "PATH=$PATH:$HOME/miniconda/bin" >> ~/.bashrc;
-    source ~/.bashrc;
     cd ~;
-    ~/miniconda/bin/conda install -y -c conda-forge tensorflow;
+    ~/miniconda/bin/conda install -y -c conda-forge tensorflow keras;
+    ~/miniconda/bin/conda install -y pytorch-cpu torchvision-cpu -c pytorch
     ~/miniconda/bin/conda config --set auto_activate_base false
-    ~/miniconda/bin/conda create -y -n tensorflow_env tensorflow;
+    ~/miniconda/bin/conda create -y -n tensorflow_env tensorflow keras pytorch-cpu torchvision-cpu -c pytorch;
     #conda config --set auto_activate_base true
     ~/miniconda/bin/conda init bash
     echo "conda activate tensorflow_env" > StartTFenv.sh
     chmod +x StartTFenv.sh
+    source ~/.bashrc;
 
 }
 
@@ -177,7 +177,7 @@ cmd=(dialog --backtitle "Crostini Machine Learning Setup Utility v00.1" \
 --checklist "Select installable packages:" 42 50 50);
 
 options=(
-    01 "Install Conda with TensorFlow" on
+    01 "Install Conda with TensorFlow and Keras" on
     02 "Build and Install OpenCV" on
     03 "Setup udev rules for Intel Movidius Neural Compute Stick 1/2" off
     04 "Setup Google Coral Edge TPU (Experimental)" off
