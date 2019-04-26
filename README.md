@@ -3,7 +3,10 @@ Thank You for using the ChromeOS Crostini Machine Learning Setup Script to setup
 
 Please visit the official instructions at https://kmyers.me/help/chromeos-crostini-ml/
 
-Install it with 
+Note - This requires a Chromebook with a X86_64 Processor and Crostini must be enabeled. 
+
+Install it by running 
 
 cd ~/
+
 sudo apt install -y wget && bash <(wget -qO- https://raw.githubusercontent.com/KeithIMyers/Crostini-Machine-Learning/master/CrostiniMLSetup);
