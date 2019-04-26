@@ -8,5 +8,4 @@ Note - This requires a Chromebook with a X86_64 Processor and Crostini must be e
 Install it by running 
 
 cd ~/
-
 sudo apt install -y wget && bash <(wget -qO- https://raw.githubusercontent.com/KeithIMyers/Crostini-Machine-Learning/master/CrostiniMLSetup);
