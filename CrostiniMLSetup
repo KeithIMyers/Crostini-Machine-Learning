@@ -119,7 +119,7 @@ title "Building and installing OpenCV";
 }
 installNCSudev() {
 title "Setting udev Rules";
-     sudo apt-get -y install udev;
+     sudo apt-get -y install udev cpio;
      sudo mkdir /etc/udev/rules.d/
      cd ~/
      cat <<EOF > 97-usbboot.rules
