@@ -210,7 +210,7 @@ options=(
     02 "Build and Install OpenCV" on
     03 "Setup udev rules for Intel Movidius Neural Compute Stick 1/2" off
     04 "Setup Google Coral Edge TPU (Experimental)" off
-    05 "Setup Google Coral Edge TPU (Experimental)" off
+    05 "Setup Google Coral Edge TPU High Powered Mode (Experimental)" off
     06 "Create Tensorflow Hello Sample Script" on
 );
 
@@ -261,7 +261,7 @@ do
         02) installOpenCV ;;
         03) installNCSudev ;;
         04) installCoralEdgeTPU ;;
-        05) installCoralEdgeTPU (High Powered Mode) ;;
+        05) installCoralEdgeTPUMAX ;;
         06) installTFSampleCode ;;
     esac
 done
