@@ -75,7 +75,7 @@ title "Installing Conda with Tensorflow and Keras and PyTorch";
 #INSTALL OPENCV
 installOpenCV() {
 title "Building and installing OpenCV";
-     OPENCV_VERSION='3.4.2'
+     OPENCV_VERSION='4.2.0'
      # 2. INSTALL THE DEPENDENCIES
 
      # Build tools:
