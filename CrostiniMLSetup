@@ -137,16 +137,43 @@ EOF
 
 installCoralEdgeTPU() {
 title "Setting up Coral Edge TPU ";
-     cd ~/
-     wget https://dl.google.com/coral/edgetpu_api/edgetpu_api_latest.tar.gz -O edgetpu_api.tar.gz --trust-server-names
-     tar xzf edgetpu_api.tar.gz
-     rm edgetpu_api.tar.gz
-     cd edgetpu_api
-     #PATCH THE OS VERSION
-     sed -i '/OS_VERSION=$(uname -v)/c\OS_VERSION=\"Debian\"' install.sh
-     sed -i '/OS_VERSION=$(uname -v)/c\OS_VERSION=\"Debian\"' uninstall.sh
-     #RUN THE INSTALLER AND SETUP  UDEV RULES
-     bash ./install.sh
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get -y install libedgetpu1-std
+
+installCoralEdgeTPUMAX() {
+
+cmd=(dialog --backtitle "Coral Edge TPU MAX" \
+--ascii-lines \
+--clear \
+--nocancel
+--separate-output \
+--checklist "Continue With Max Frequency:" 42 50 50);
+
+options=(
+    01 "Install Normal Frequency" on
+    02 "I Understand the Risks and still want Max Frequency" off
+);
+
+EdgeTPUchoices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty);
+
+for choice in ${EdgeTPUchoices}
+do
+    case ${choice} in
+        01) installCoralEdgeTPU ;;
+        02) installCoralEdgeTPUMAXConf ;;
+    esac
+done
+
+}
+installCoralEdgeTPUMAXConf() {
+
+title "Setting up Coral Edge TPU Max ";
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get -y install libedgetpu1-max
 
 
 
@@ -183,7 +210,8 @@ options=(
     02 "Build and Install OpenCV" on
     03 "Setup udev rules for Intel Movidius Neural Compute Stick 1/2" off
     04 "Setup Google Coral Edge TPU (Experimental)" off
-    05 "Create Tensorflow Hello Sample Script" on
+    05 "Setup Google Coral Edge TPU (Experimental)" off
+    06 "Create Tensorflow Hello Sample Script" on
 );
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty);
@@ -233,7 +261,8 @@ do
         02) installOpenCV ;;
         03) installNCSudev ;;
         04) installCoralEdgeTPU ;;
-        05) installTFSampleCode ;;
+        05) installCoralEdgeTPU (High Powered Mode) ;;
+        06) installTFSampleCode ;;
     esac
 done
 
