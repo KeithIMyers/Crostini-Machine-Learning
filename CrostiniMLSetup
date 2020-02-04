@@ -242,11 +242,9 @@ title "Installing Pre-Requisite Packages";
     libssl-dev \
     nano \
     vim \
-    unzip \
-    gksu;
+    unzip;
 
     sudo updatedb;
-    sudo rm /usr/share/applications/gksu.desktop;
 breakLine;
 
 
