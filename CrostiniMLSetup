@@ -136,6 +136,7 @@ EOF
 
 installCoralEdgeTPU() {
 title "Setting up Coral Edge TPU ";
+sudo rm -rf /etc/apt/sources.list.d/coral-edgetpu.*
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
@@ -144,6 +145,7 @@ sudo apt-get -y install libedgetpu1-std
 
 installCoralEdgeTPUMAX() {
 title "Setting up Coral Edge TPU Max ";
+sudo rm -rf /etc/apt/sources.list.d/coral-edgetpu.*
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
