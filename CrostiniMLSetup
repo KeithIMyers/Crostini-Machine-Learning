@@ -128,11 +128,10 @@ SUBSYSTEM=="usb", ATTRS{idProduct}=="2485", ATTRS{idVendor}=="03e7", GROUP="user
 SUBSYSTEM=="usb", ATTRS{idProduct}=="f63b", ATTRS{idVendor}=="03e7", GROUP="users", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
 EOF
      sudo cp 97-usbboot.rules /etc/udev/rules.d/
-     sudo echo "ChromeOS" > /etc/lsb-release
+     #sudo echo "ChromeOS" > /etc/lsb-release
      sudo udevadm control --reload-rules
      sudo udevadm trigger
      sudo ldconfig
-
 }
 
 installCoralEdgeTPU() {
@@ -144,41 +143,13 @@ sudo apt-get -y install libedgetpu1-std
 }
 
 installCoralEdgeTPUMAX() {
-
-cmd=(dialog --backtitle "Coral Edge TPU MAX" \
---ascii-lines \
---clear \
---nocancel
---separate-output \
---checklist "Continue With Max Frequency:" 42 50 50);
-
-options=(
-    01 "Install Normal Frequency" on
-    02 "I Understand the Risks and still want Max Frequency" off
-);
-
-EdgeTPUchoices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty);
-
-for choice in ${EdgeTPUchoices}
-do
-    case ${choice} in
-        01) installCoralEdgeTPU ;;
-        02) installCoralEdgeTPUMAXConf ;;
-    esac
-done
-
-}
-installCoralEdgeTPUMAXConf() {
-
 title "Setting up Coral Edge TPU Max ";
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
 sudo apt-get -y install libedgetpu1-max
-
-
-
 }
+
 installTFSampleCode(){
 title "Writing Sample - Tensorflow Hello World ";
      cd ~/
