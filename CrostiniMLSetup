@@ -65,7 +65,7 @@ title "Installing Conda with Tensorflow and Keras and PyTorch";
     ~/miniconda/bin/conda install -y pytorch-cpu torchvision-cpu -c pytorch
     ~/miniconda/bin/conda install -c conda-forge jupyterlab
     ~/miniconda/bin/conda config --set auto_activate_base false
-    ~/miniconda/bin/conda create -y -n tensorflow_env tensorflow keras pytorch-cpu torchvision-cpu -c pytorch;
+    ~/miniconda/bin/conda create -y -n tensorflow_env tensorflow jupyter keras pytorch-cpu torchvision-cpu -c pytorch;
     #conda config --set auto_activate_base true
     ~/miniconda/bin/conda init bash
     echo "conda activate tensorflow_env" > StartTFenv.sh
