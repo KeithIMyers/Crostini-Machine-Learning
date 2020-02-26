@@ -74,6 +74,27 @@ title "Installing Conda with Tensorflow and Keras and PyTorch";
 
 }
 
+installCondaCUDA() {
+title "Installing Conda with Tensorflow-GPU and Keras and PyTorch";
+    cd /tmp;
+    curl -O https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh;
+    bash Anaconda3-2019.10-Linux-x86_64.sh -b -u -p $HOME/miniconda;
+    rm Anaconda3-2019.10-Linux-x86_64.sh;
+    cd ~;
+    sudo apt  install jupyter-core
+    ~/miniconda/bin/conda install -y -c conda-forge tensorflow keras;
+    ~/miniconda/bin/conda install -y pytorch-cpu torchvision-cpu -c pytorch
+    ~/miniconda/bin/conda install -c conda-forge jupyterlab
+    ~/miniconda/bin/conda config --set auto_activate_base false
+    ~/miniconda/bin/conda create -y -n tensorflow_env tensorflow-gpu jupyter keras pytorch-cpu torchvision-cpu -c pytorch;
+    #conda config --set auto_activate_base true
+    ~/miniconda/bin/conda init bash
+    echo "conda activate tensorflow_env" > StartTFenv.sh
+    chmod +x StartTFenv.sh
+    source ~/.bashrc;
+
+}
+
 #INSTALL OPENCV
 installOpenCV() {
 title "Building and installing OpenCV";
@@ -161,14 +182,20 @@ title "Writing Sample - Tensorflow Hello World ";
 import tensorflow as tf
 # Simple hello world using TensorFlow by Keith I Myers
 # https://KMyers.me | Keith@KMyers.me
+print(hwinfo)
+
 
 hello = tf.constant('Hello World, from TensorFlow!')
 
 sess = tf.Session()
 
 print(sess.run(hello))
+hwinfo = tf.config.experimental.list_physical_devices(device_type=None)
 EOF
 }
+
+
+
 ###############################################################
 ## MAIN PROGRAM
 ###############################################################
@@ -183,11 +210,12 @@ cmd=(dialog --backtitle "Crostini Machine Learning Setup Utility v00.1" \
 
 options=(
     01 "Install Conda with TensorFlow and Keras" on
-    02 "Build and Install OpenCV" on
-    03 "Setup udev rules for Intel Movidius Neural Compute Stick 1/2" off
-    04 "Setup Google Coral Edge TPU (Experimental)" off
-    05 "Setup Google Coral Edge TPU High Powered Mode (Experimental)" off
-    06 "Create Tensorflow Hello Sample Script" on
+    02 "Install Conda with TensorFlow-GPU, CUDA and Keras(EXPERIMENTAL/Nvidia Only)" off
+    03 "Build and Install OpenCV" on
+    04 "Setup udev rules for Intel Movidius Neural Compute Stick 1/2" off
+    05 "Setup Google Coral Edge TPU (Experimental)" off
+    06 "Setup Google Coral Edge TPU High Powered Mode (Experimental)" off
+    07 "Create Tensorflow Hello Sample Script" on
 );
 
 choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty);
@@ -232,11 +260,12 @@ for choice in ${choices}
 do
     case ${choice} in
         01) installConda ;;
-        02) installOpenCV ;;
-        03) installNCSudev ;;
-        04) installCoralEdgeTPU ;;
-        05) installCoralEdgeTPUMAX ;;
-        06) installTFSampleCode ;;
+        02) installCondaCUDA ;;
+        03) installOpenCV ;;
+        04) installNCSudev ;;
+        05) installCoralEdgeTPU ;;
+        06) installCoralEdgeTPUMAX ;;
+        07) installTFSampleCode ;;
     esac
 done
 
