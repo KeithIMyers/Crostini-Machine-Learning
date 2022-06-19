@@ -160,6 +160,7 @@ EOF
 installCoralEdgeTPU() {
 title "Setting up Coral Edge TPU ";
 sudo rm -rf /etc/apt/sources.list.d/coral-edgetpu.*
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 8B57C5C2836F4BEB
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
